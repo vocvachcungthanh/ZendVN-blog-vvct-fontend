@@ -1,0 +1,6 @@
+export { default as MainTitle } from '~/components/News/MainTitle.vue'
+export { default as NewsPopularCard } from '~/components/News/NewsPopularCard.vue'
+export { default as NewsLatestCard } from '~/components/News/NewsLatestCard.vue'
+export { default as NewsPopular } from '~/components/News/NewsPopular.vue'
+export { default as ArticlesList } from '~/components/News/ArticlesList.vue'
+export { default as NewsLatest } from '~/components/News/NewsLatest.vue'

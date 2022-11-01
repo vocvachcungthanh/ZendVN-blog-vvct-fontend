@@ -1,0 +1,5 @@
+export { default as LogoHeader } from './LogoHeader.vue'
+export { default as SearchHeader } from './SearchHeader.vue'
+export { default as MenuHeader } from './MenuHeader.vue'
+export { default as LoginHeader } from './LoginHeader.vue'
+export { default } from './TheHeader.vue'

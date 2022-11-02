@@ -10,6 +10,7 @@
 
 <script>
 import { AppButton } from '~/components/common'
+import { getUrlCategories } from '~/helpers'
 
 export default {
   components: {
@@ -25,7 +26,7 @@ export default {
 
   methods: {
     getSlug(item) {
-      return `/categories/${item.slug}`
+      return getUrlCategories(item.slug)
     },
   },
 }

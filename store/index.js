@@ -1,4 +1,4 @@
-import { recursiveMenu } from '~/helpers'
+import { getTokenFromCookie, recursiveMenu } from '~/helpers'
 
 export const state = () => {
   return {
@@ -23,10 +23,16 @@ export const getters = {
 }
 
 export const actions = {
-  async nuxtServerInit({ dispatch }) {
+  async nuxtServerInit({ dispatch }, { req }) {
+    const token = getTokenFromCookie(req)
+
+    // eslint-disable-next-line no-console
+    console.log('[token]', token)
+
     await Promise.all([
       await dispatch('actFetchAppMainMenus'),
       await dispatch('categories/actFetchCategories'),
+      await dispatch('author/actFetchCurrentUser', token),
     ])
   },
 

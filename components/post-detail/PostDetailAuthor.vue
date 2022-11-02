@@ -18,6 +18,7 @@
 
 <script>
 import { AppButton } from '@/components/common'
+import { getUrlUser } from '~/helpers'
 
 export default {
   components: {
@@ -37,7 +38,7 @@ export default {
     },
 
     getAuthorLink() {
-      return `/users/${this.postAuthor.authorId}`
+      return getUrlUser(this.postAuthor.authorId)
     },
   },
 }

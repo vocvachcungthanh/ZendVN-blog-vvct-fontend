@@ -21,7 +21,7 @@
 
 <script>
 import { AppButton } from '@/components/common'
-import { formatDay } from '@/helpers'
+import { formatDay, getUrlUser } from '@/helpers'
 
 export default {
   components: {
@@ -37,7 +37,7 @@ export default {
 
   computed: {
     getLinkUser() {
-      return `/user/${this.commentItem.id}`
+      return getUrlUser(this.commentItem.id)
     },
 
     getAvatar() {

@@ -134,3 +134,13 @@
   margin-left: 42px;
   margin-top: 1rem;
 }
+
+.comments__info--link {
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 2rem;
+}
+
+.btn-load-more {
+  margin-top: 2rem;
+}

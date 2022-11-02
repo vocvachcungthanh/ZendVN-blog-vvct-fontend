@@ -7,7 +7,10 @@
       <div class="tcl-container">
         <div class="post-detail__wrapper">
           <PostDetailContent :post="postDetail" />
-          <PostDetailSidebar :post-author="postDetail.authorData" />
+          <PostDetailSidebar
+            :post-author="postDetail.authorData"
+            :post-id="postDetail.id"
+          />
         </div>
       </div>
     </div>
@@ -62,6 +65,12 @@ export default {
   data() {
     return {
       post: {},
+    }
+  },
+
+  head() {
+    return {
+      title: this.postDetail.title.rendered,
     }
   },
 

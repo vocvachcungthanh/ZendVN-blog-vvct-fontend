@@ -130,7 +130,7 @@ export default {
       const response = await this.$api.get('/posts', {
         params: {
           page: 1,
-          per_page: 5,
+          per_page: 6,
           author,
         },
       })

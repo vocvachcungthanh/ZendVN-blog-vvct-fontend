@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { cutText } from '~/helpers'
+import { cutText, getUrlPostDetail } from '~/helpers'
 
 import {
   ArticleItemTitle,
@@ -99,7 +99,7 @@ export default {
     },
 
     getSlug() {
-      return `/post-detail/${this.post.slug}`
+      return getUrlPostDetail(this.post.slug)
     },
 
     getTitle() {

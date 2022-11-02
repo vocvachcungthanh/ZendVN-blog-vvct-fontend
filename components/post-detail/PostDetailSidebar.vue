@@ -2,7 +2,7 @@
   <div class="post-detail__side">
     <PostDetailAuthor :post-author="postAuthor" />
     <div class="spacing"></div>
-    <PostRelatedAuthor />
+    <PostRelatedAuthor :post-id="postId" />
   </div>
 </template>
 
@@ -20,6 +20,11 @@ export default {
     postAuthor: {
       type: Object,
       default: Object,
+    },
+
+    postId: {
+      type: Number,
+      default: Number,
     },
   },
 }

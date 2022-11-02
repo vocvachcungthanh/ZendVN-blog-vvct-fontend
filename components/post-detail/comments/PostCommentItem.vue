@@ -23,11 +23,7 @@
     />
 
     <!-- Reply form -->
-    <!-- <PostFromComment
-      :comment-reply-paging="commentReplyPaging"
-      :parent-id="parentId"
-      :post="commentItem.post"
-    /> -->
+    <PostFromComment :placeholder="getPlaceholder" />
   </li>
 </template>
 
@@ -35,7 +31,7 @@
 import { mapState } from 'vuex'
 
 import PostCommentSection from './PostCommentSection.vue'
-// import PostFromComment from './PostFromComment.vue'
+import PostFromComment from './PostFromComment.vue'
 import PostCommentAnswer from './PostCommentAnswer.vue'
 
 export default {
@@ -43,7 +39,7 @@ export default {
 
   components: {
     PostCommentSection,
-    // PostFromComment,
+    PostFromComment,
     PostCommentAnswer,
   },
 
@@ -116,6 +112,10 @@ export default {
       }
 
       return commentReplyCount
+    },
+
+    getPlaceholder() {
+      return `Trả lời bình luận của ${this.commentItem.name} ...`
     },
   },
 

@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { getUrlHome, getUrlSearch } from '~/helpers'
 export default {
   name: 'SearchHeader',
 
@@ -44,14 +45,14 @@ export default {
 
       if (keyWord !== '') {
         this.$router.push({
-          path: '/search',
+          path: getUrlSearch(),
           query: {
             q: keyWord,
           },
         })
       } else {
         this.$router.push({
-          path: '/',
+          path: getUrlHome(),
         })
       }
     },

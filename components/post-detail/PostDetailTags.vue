@@ -13,6 +13,7 @@
 
 <script>
 import { AppButton } from '@/components/common'
+import { getUrlTags } from '~/helpers'
 
 export default {
   components: {
@@ -48,7 +49,7 @@ export default {
 
   methods: {
     getSlug(item) {
-      return `tags/${item.slug}`
+      return getUrlTags(item.slug)
     },
   },
 }

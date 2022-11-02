@@ -1,7 +1,7 @@
 <template>
   <div class="text-center">
     <AppButton
-      class="btn btn-primary btn-size-large"
+      class="btn btn-primary btn-size-large btn-load-more"
       @click.native="handleLoadMore"
     >
       <svg

@@ -4,6 +4,7 @@
       v-for="comment in comments"
       :key="comment.id"
       :comment-item="comment"
+      :is-parent="true"
     />
   </ul>
 </template>

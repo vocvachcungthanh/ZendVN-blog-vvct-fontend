@@ -44,6 +44,17 @@ export default {
     ...mapState({
       posts: (state) => state.posts.articlesPaging,
     }),
+
+    getPosts() {
+      const postClone = { ...this.posts }
+
+      const articles = postClone.articles
+
+      return {
+        ...postClone,
+        articles: [...Array.from(new Set(articles))],
+      }
+    },
   },
 }
 </script>

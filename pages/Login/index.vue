@@ -24,6 +24,12 @@ export default {
   components: {
     index,
   },
+
+  head() {
+    return {
+      title: 'Đăng nhập',
+    }
+  },
 }
 </script>
 

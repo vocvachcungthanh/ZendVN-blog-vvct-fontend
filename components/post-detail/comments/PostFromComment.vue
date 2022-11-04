@@ -1,17 +1,22 @@
 <template>
-  <div class="comments__form">
+  <form class="comments__form" @submit.prevent="handleSubmit">
     <div class="comments__form--control">
       <div class="comments__section--avatar">
         <AppButton :href="getLinkUser" class-names="link__avatar">
           <img :src="avatarAuthor" :alt="currentUser.name" />
         </AppButton>
       </div>
-      <textarea name="" :placeholder="placeholder"></textarea>
+      <Input
+        :textarea="true"
+        :placeholder="placeholder"
+        :value="message"
+        @onChange="handleChange"
+      />
     </div>
     <div class="text-right">
-      <AppButton> Gửi </AppButton>
+      <AppButton type="submit"> Gửi </AppButton>
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -19,10 +24,12 @@ import { mapGetters, mapState } from 'vuex'
 
 import { AppButton } from '@/components/common'
 import { getUrlUser } from '~/helpers'
+import { Input } from '~/components/common'
 
 export default {
   components: {
     AppButton,
+    Input,
   },
 
   props: {
@@ -30,6 +37,12 @@ export default {
       type: String,
       default: 'Đển lại bình luận của bạn ...',
     },
+  },
+
+  data() {
+    return {
+      message: '',
+    }
   },
 
   computed: {
@@ -45,6 +58,20 @@ export default {
       const authorId = this?.currentUser.id || null
 
       return getUrlUser(authorId)
+    },
+  },
+
+  methods: {
+    handleSubmit() {
+      this.$emit('onChange', this.message)
+
+      this.message = ''
+    },
+
+    handleChange(event) {
+      const field = event.target.value
+
+      return (this.message = field)
     },
   },
 }

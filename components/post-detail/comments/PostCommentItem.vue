@@ -1,7 +1,12 @@
 <!-- eslint-disable no-prototype-builtins -->
 <template>
   <li class="item">
-    <PostCommentSection :comment-item="commentItem" />
+    <PostCommentSection
+      :comment-item="commentItem"
+      :is-parent="isParent"
+      :is-form-reply="isFormReply"
+      @onButtonReply="handleButtonReply"
+    />
 
     <ul v-if="isCheckCommentReply" class="comments">
       <post-comment-item
@@ -23,12 +28,16 @@
     />
 
     <!-- Reply form -->
-    <PostFromComment :placeholder="getPlaceholder" />
+    <PostFromComment
+      v-if="isFormReply"
+      :placeholder="getPlaceholder"
+      @onChange="handleChangeReply"
+    />
   </li>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import PostCommentSection from './PostCommentSection.vue'
 import PostFromComment from './PostFromComment.vue'
@@ -48,6 +57,17 @@ export default {
       type: Object,
       default: Object,
     },
+
+    isParent: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
+  data() {
+    return {
+      isFormReply: false,
+    }
   },
 
   computed: {
@@ -114,18 +134,38 @@ export default {
       return commentReplyCount
     },
 
+    getAuthorName() {
+      return this.commentItem.authorData?.nickName
+    },
+
     getPlaceholder() {
-      return `Trả lời bình luận của ${this.commentItem.name} ...`
+      return `Trả lời bình luận của ${this.getAuthorName} ...`
     },
   },
 
   methods: {
+    ...mapActions({
+      actFetchPostCommentList: 'comments/actFetchPostNewComment',
+    }),
+
     hasCommentReplyCount(replyCount) {
       return replyCount > 0
     },
 
     hasComments() {
       return this.commentReplyPaging.commentsReply.length > 0
+    },
+
+    handleButtonReply(e) {
+      return (this.isFormReply = e)
+    },
+
+    handleChangeReply(e) {
+      this.actFetchPostCommentList({
+        post: this.commentItem.post,
+        content: e,
+        parent: this.parentId,
+      }).then((res) => this.commentExclude.push(res.comment.id))
     },
   },
 }

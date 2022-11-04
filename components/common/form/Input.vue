@@ -1,5 +1,21 @@
+<!-- eslint-disable vue/valid-v-bind -->
 <template>
-  <input :type="type" :placeholder="placeholder" :class="getClassName" />
+  <input
+    v-if="!textarea"
+    :type="type"
+    :placeholder="placeholder"
+    :class="getClassName"
+    :value="value"
+    @input="(e) => handleChange(e)"
+  />
+  <textarea
+    v-else
+    type="text"
+    :placeholder="placeholder"
+    :class="getClassName"
+    :value="value"
+    @input="(e) => handleChange(e)"
+  ></textarea>
 </template>
 
 <script>
@@ -21,6 +37,21 @@ export default {
       type: String,
       default: null,
     },
+
+    textarea: {
+      type: Boolean,
+      default: false,
+    },
+
+    name: {
+      type: String,
+      default: '',
+    },
+
+    value: {
+      type: String,
+      default: String,
+    },
   },
 
   computed: {
@@ -30,6 +61,12 @@ export default {
       }
 
       return null
+    },
+  },
+
+  methods: {
+    handleChange(e) {
+      return this.$emit('onChange', e)
     },
   },
 }

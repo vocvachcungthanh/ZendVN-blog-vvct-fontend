@@ -1,5 +1,5 @@
 import cookie from 'cookie'
-import { configUrl as configLink } from '@/constant'
+import { configUrl as configLink } from '@/constants'
 
 export const cutText = (text, start, end) => {
   let result = text

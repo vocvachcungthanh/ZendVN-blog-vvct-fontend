@@ -32,7 +32,7 @@
           ></animateTransform>
         </circle>
       </svg>
-      Load more
+      Xem thêm
     </AppButton>
   </div>
 </template>

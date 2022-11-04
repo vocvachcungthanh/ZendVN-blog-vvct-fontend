@@ -28,4 +28,13 @@ export default {
   setRelatedPost(state, post) {
     state.postRelatedPost = post
   },
+
+  increaseCommentCount(postsState) {
+    if (postsState.postDetail) {
+      postsState.postDetail = {
+        ...postsState.postDetail,
+        commentCount: postsState.postDetail.commentCount + 1,
+      }
+    }
+  },
 }

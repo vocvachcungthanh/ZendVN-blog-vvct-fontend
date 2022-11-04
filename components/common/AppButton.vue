@@ -1,9 +1,9 @@
 <template>
-  <button v-if="!href" :class="className">
+  <button v-if="!href" :type="type" :class="className" :title="title">
     <slot></slot>
   </button>
 
-  <nuxt-link v-else :to="href" :class="className">
+  <nuxt-link v-else :to="href" :class="className" :title="title">
     <slot></slot>
   </nuxt-link>
 </template>
@@ -18,12 +18,17 @@ export default {
 
     type: {
       type: String,
-      default: 'default',
+      default: 'button',
     },
 
     classNames: {
       type: String,
       default: String,
+    },
+
+    title: {
+      type: String,
+      default: '',
     },
   },
 

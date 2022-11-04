@@ -86,6 +86,12 @@ export default {
     }
   },
 
+  head() {
+    return {
+      title: `Danh mục - ${this.categoriesTitle}`,
+    }
+  },
+
   computed: {
     ...mapState({
       posts: (state) => state.posts.articlesSearch,
@@ -95,9 +101,13 @@ export default {
       articles: 'posts/getArticleSearch',
     }),
 
+    categoriesTitle() {
+      return this.categories[0].name
+    },
+
     title() {
       return `Khoảng ${this.posts.wpTotal || 0} kết quả danh mục '${
-        this.categories[0].name
+        this.categoriesTitle
       }'`
     },
   },

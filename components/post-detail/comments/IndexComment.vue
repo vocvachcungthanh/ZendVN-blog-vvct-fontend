@@ -1,6 +1,6 @@
 <template>
   <div class="post-detail__comments">
-    <PostFromComment v-if="isLogin" />
+    <PostFromComment v-if="isLogin" @onChange="handleChange" />
 
     <div v-else class="comments__info--link">
       Vui lòng
@@ -19,13 +19,14 @@
         :cur-page="commentLists.curPage"
         :wp-total-pages="commentLists.wpTotalPages"
         :post-id="postId"
+        :comment-exclude="commentExclude"
       />
     </template>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 import {
   PostCommentBlock,
@@ -58,6 +59,12 @@ export default {
     },
   },
 
+  data() {
+    return {
+      commentExclude: [],
+    }
+  },
+
   computed: {
     ...mapGetters({
       isLogin: 'author/isLogin',
@@ -81,6 +88,19 @@ export default {
 
     getLinkLogin() {
       return getUrlLogin()
+    },
+  },
+
+  methods: {
+    ...mapActions({
+      actFetchPostCommentList: 'comments/actFetchPostNewComment',
+    }),
+
+    handleChange(e) {
+      this.actFetchPostCommentList({
+        post: this.postId,
+        content: e,
+      }).then((res) => this.commentExclude.push(res.comment.id))
     },
   },
 }

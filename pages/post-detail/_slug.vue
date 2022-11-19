@@ -9,7 +9,7 @@
           <PostDetailContent :post="postDetail" />
           <PostDetailSidebar
             :post-author="postDetail.authorData"
-            :post-id="postDetail.id"
+            :post-id="getPostId"
           />
         </div>
       </div>
@@ -50,21 +50,23 @@ export default {
 
     if (response.ok) {
       const postDetail = response.data
-      const authorId = postDetail.author
-      const post = postDetail.id
-
-      await Promise.all([
-        store.dispatch('posts/actFetchRelatedPost', { authorId }),
-        store.dispatch('comments/actFetchCommentsList', {
-          post,
-        }),
-      ])
+      const authorId = postDetail?.author
+      const post = postDetail?.id
+      if (post && postDetail) {
+        await Promise.all([
+          store.dispatch('posts/actFetchRelatedPost', { authorId }),
+          store.dispatch('comments/actFetchCommentsList', {
+            post,
+          }),
+        ])
+      }
     }
   },
 
   data() {
     return {
       post: {},
+      idTimeOut: null,
     }
   },
 
@@ -78,6 +80,29 @@ export default {
     ...mapState({
       postDetail: (state) => state.posts.postDetail,
     }),
+
+    getPostId() {
+      return this.postDetail.id
+    },
+  },
+
+  mounted() {
+    if (this.getPostId) {
+      this.idTimeOut = setTimeout(() => {
+        const response = this.$wpApi.post('/post-views-counter/view-post', {
+          id: this.getPostId,
+        })
+
+        // eslint-disable-next-line no-console
+        console.log('[response]', response)
+      }, 10000)
+    }
+  },
+
+  destroyed() {
+    if (this.idTimeOut) {
+      clearTimeout(this.idTimeOut)
+    }
   },
 }
 </script>

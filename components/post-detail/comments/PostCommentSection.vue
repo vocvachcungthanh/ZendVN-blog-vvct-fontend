@@ -59,11 +59,11 @@ export default {
     }),
 
     getLinkUser() {
-      return getUrlUser(this.commentItem.id)
+      return getUrlUser(this.commentItem?.id)
     },
 
     getAvatar() {
-      const num = (this.currentUser.id % 4) + 1
+      const num = (this.currentUser?.id % 4) + 1
 
       return (
         this.commentItem.authorData?.authorAvatar ||

@@ -26,9 +26,6 @@ export const actions = {
   async nuxtServerInit({ dispatch }, { req }) {
     const token = getTokenFromCookie(req)
 
-    // eslint-disable-next-line no-console
-    console.log('[token]', token)
-
     await Promise.all([
       await dispatch('actFetchAppMainMenus'),
       await dispatch('categories/actFetchCategories'),

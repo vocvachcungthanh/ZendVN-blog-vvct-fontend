@@ -96,11 +96,16 @@ export default {
       actFetchPostCommentList: 'comments/actFetchPostNewComment',
     }),
 
-    handleChange(e) {
+    handleChange({ message, callback }) {
       this.actFetchPostCommentList({
         post: this.postId,
-        content: e,
-      }).then((res) => this.commentExclude.push(res.comment.id))
+        content: message,
+      }).then((res) => {
+        callback()
+        if (res.ok) {
+          this.commentExclude.push(res.comment.id)
+        }
+      })
     },
   },
 }

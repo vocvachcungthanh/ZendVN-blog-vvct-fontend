@@ -25,8 +25,18 @@ export default {
 
     if (curPage > 1) {
       data.commentsReply = [
-        ...state.hasCommentReplyPaging[key].commentsReply,
+        ...state.hasCommentReplyPaging[key]?.commentsReply,
         ...data.commentsReply,
+      ]
+    }
+
+    if (
+      state.hasCommentReplyPaging[key]?.commentsReply &&
+      state.hasCommentReplyPaging[key]?.curPage === 0
+    ) {
+      data.commentsReply = [
+        ...data.commentsReply,
+        ...state.hasCommentReplyPaging[key]?.commentsReply,
       ]
     }
 
@@ -82,13 +92,26 @@ export default {
     const key = `reply-parent-${parentId}`
 
     if (state.hasCommentReplyPaging[key]) {
-      //
+      const newCommentReply = [
+        ...state.hasCommentReplyPaging[key].commentsReply,
+        newComment,
+      ]
+
+      state.hasCommentReplyPaging = {
+        ...state.hasCommentReplyPaging,
+        [key]: {
+          commentsReply: newCommentReply,
+          curPage: 0,
+          wpTotal: 1,
+          wpTotalPages: 1,
+        },
+      }
     } else {
       state.hasCommentReplyPaging = {
         ...state.hasCommentReplyPaging,
         [key]: {
           commentsReply: [newComment],
-          curPage: 1,
+          curPage: 0,
           wpTotal: 1,
           wpTotalPages: 1,
         },

@@ -14,7 +14,9 @@
       />
     </div>
     <div class="text-right">
-      <AppButton type="submit"> Gửi </AppButton>
+      <AppButton type="submit">
+        <AppSVG v-if="isLoading" :icon="getIconLoading" /> Gửi
+      </AppButton>
     </div>
   </form>
 </template>
@@ -22,14 +24,16 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 
-import { AppButton } from '@/components/common'
+import { AppButton, AppSVG } from '@/components/common'
 import { getUrlUser } from '~/helpers'
 import { Input } from '~/components/common'
+import { IconLoading } from '@/assets/images'
 
 export default {
   components: {
     AppButton,
     Input,
+    AppSVG,
   },
 
   props: {
@@ -42,6 +46,7 @@ export default {
   data() {
     return {
       message: '',
+      isLoading: false,
     }
   },
 
@@ -59,13 +64,24 @@ export default {
 
       return getUrlUser(authorId)
     },
+
+    getIconLoading() {
+      return IconLoading
+    },
   },
 
   methods: {
     handleSubmit() {
-      this.$emit('onChange', this.message)
+      const data = {
+        message: this.message,
+        callback: () => {
+          this.message = ''
+          this.isLoading = false
+        },
+      }
 
-      this.message = ''
+      this.isLoading = true
+      this.$emit('onChange', data)
     },
 
     handleChange(event) {

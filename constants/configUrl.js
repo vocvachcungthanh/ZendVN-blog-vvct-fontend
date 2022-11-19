@@ -7,4 +7,5 @@ export default {
   login: '/login',
   register: '/register',
   tag: '/tags',
+  dashboard: '/dashboard',
 }

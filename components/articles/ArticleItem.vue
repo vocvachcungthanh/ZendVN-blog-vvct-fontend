@@ -7,15 +7,12 @@
     />
     <div class="article-item__content">
       <ArticleItemCategories
-        v-if="post.categories?.length > 0 && isStyleCard && isCategories"
+        v-if="isCheckCategories"
         :categories="post.categories"
       />
       <ArticleItemView v-if="isStyleCard && isView" :view="post.viewCount" />
       <ArticleItemTitle :title="getTitle" :slug="getSlug" />
-      <ArticleItemDesc
-        v-if="isStyleCard && isDesc"
-        :desc="post?.excerpt?.rendered"
-      />
+      <ArticleItemDesc v-if="isStyleCard && isDesc" :desc="getDesc" />
       <ArticleItemInfo
         :is-author-avatar="isAuthorAvatar"
         :author-avatar="getAuthorAvatar"
@@ -114,6 +111,18 @@ export default {
 
     getAuthorAvatar() {
       return this.post.authorData?.authorAvatar
+    },
+
+    getDesc() {
+      return this.post?.excerpt?.rendered
+    },
+
+    isCheckCategories() {
+      return (
+        this.post.categories?.length > 0 &&
+        this.isStyleCard &&
+        this.isCategories
+      )
     },
   },
 }

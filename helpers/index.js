@@ -101,3 +101,17 @@ export const getUrlTags = (url) => {
 
   return configLink.tag
 }
+
+export const getUrlDashboard = (url) => {
+  if (url) {
+    return `${configLink.dashboard}/${url}`
+  }
+
+  return configLink.dashboard
+}
+
+export const getBase64 = (img, callback) => {
+  const reader = new FileReader()
+  reader.addEventListener('load', () => callback(reader.result))
+  reader.readAsDataURL(img)
+}

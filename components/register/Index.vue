@@ -8,6 +8,22 @@
         @onChange="handleChange"
       />
     </Field>
+    <Field for-html="email" label-name="Email">
+      <Input
+        placeholder="Nhập email ..."
+        name="email"
+        :value="email"
+        @onChange="handleChange"
+      />
+    </Field>
+    <Field for-html="NickName" label-name="NickName">
+      <Input
+        placeholder="Nhập nickName ..."
+        name="nickname"
+        :value="nickname"
+        @onChange="handleChange"
+      />
+    </Field>
     <Field for-html="password" label-name="Mật khẩu">
       <i
         class="toggle-password"
@@ -24,8 +40,8 @@
     </Field>
 
     <div class="d-flex tcl-jc-between tcl-ais-center">
-      <LoginSubmit @click.native="handleSubmit" />
-      <LoginRegister />
+      <RegisterSubmit @click.native="handleSubmit" />
+      <RegisterLogin />
     </div>
   </form>
 </template>
@@ -33,17 +49,17 @@
 <script>
 import { mapActions } from 'vuex'
 
-import LoginSubmit from '@/components/login/LoginSubmit.vue'
-import LoginRegister from '@/components/login/LoginRegister.vue'
+import RegisterSubmit from '@/components/register/RegisterSubmit.vue'
+import RegisterLogin from '@/components/register/RegisterLogin.vue'
 import { Field, Input } from '@/components/common'
 import { getUrlHome } from '@/helpers'
 
 export default {
-  name: 'LoginIndex',
+  name: 'RegisterIndex',
 
   components: {
-    LoginSubmit,
-    LoginRegister,
+    RegisterSubmit,
+    RegisterLogin,
     Field,
     Input,
   },
@@ -53,8 +69,10 @@ export default {
   data() {
     return {
       isLoading: false,
+      email: '',
       username: '',
       password: '',
+      nickname: '',
       isShowPassword: false,
     }
   },
@@ -78,25 +96,31 @@ export default {
 
   methods: {
     ...mapActions({
-      actFetchLogin: 'author/actFetchLogin',
+      actFetchRegister: 'author/actFetchRegister',
     }),
 
     handleSubmit(e) {
       e.preventDefault()
+      this.isLoading = true
 
       if (this.username && this.password) {
-        this.actFetchLogin({
+        this.actFetchRegister({
+          email: this.email,
           username: this.username,
           password: this.password,
+          nickname: this.nickname,
         }).then((res) => {
+          // eslint-disable-next-line no-console
+          console.log('[res]', res)
           if (res.ok) {
-            alert('Đăng nhập thành công')
             this.$router.push(getUrlHome())
           } else {
-            alert('Đăng nhập thất bại')
+            alert(res.error)
           }
         })
       }
+
+      this.isLoading = false
     },
 
     handleShowPassword() {

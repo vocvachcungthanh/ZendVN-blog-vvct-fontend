@@ -45,7 +45,9 @@ export default {
       }
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.log('[actFetchCommentsList]', error?.response?.data?.message)
+      console.log('[error]', error)
+      // eslint-disable-next-line no-console
+      console.log('[actFetchCommentsList]', error?.response)
     }
   },
 
@@ -90,9 +92,18 @@ export default {
           comment: response.data,
         }
       }
+
+      return {
+        ok: false,
+        error: response.message,
+      }
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('[error]', error)
+      if (error.response && error.response.data) {
+        return {
+          ok: false,
+          error: error.response.data.message,
+        }
+      }
       return {
         ok: false,
         error: error.message,

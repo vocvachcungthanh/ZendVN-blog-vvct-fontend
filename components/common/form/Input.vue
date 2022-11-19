@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/valid-v-bind -->
 <template>
   <input
     v-if="!textarea"
@@ -6,11 +5,13 @@
     :placeholder="placeholder"
     :class="getClassName"
     :value="value"
+    :name="name"
     @input="(e) => handleChange(e)"
   />
   <textarea
     v-else
     type="text"
+    :name="name"
     :placeholder="placeholder"
     :class="getClassName"
     :value="value"
@@ -30,12 +31,12 @@ export default {
 
     placeholder: {
       type: String,
-      default: null,
+      default: String,
     },
 
     classNames: {
       type: String,
-      default: null,
+      default: String,
     },
 
     textarea: {
@@ -45,7 +46,7 @@ export default {
 
     name: {
       type: String,
-      default: '',
+      default: String,
     },
 
     value: {

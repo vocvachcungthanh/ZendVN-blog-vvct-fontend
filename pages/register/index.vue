@@ -4,7 +4,7 @@
     <div class="tcl-container">
       <div class="tcl-row">
         <div class="tcl-col-12 tcl-col-sm-6 block-center">
-          <h1 class="form-title text-center">Đăng nhập</h1>
+          <h1 class="form-title text-center">Đăng ký</h1>
           <div class="form-login-register">
             <index />
           </div>
@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import index from '@/components/login'
+import index from '@/components/register'
 
 export default {
-  name: 'PageLogin',
+  name: 'PageRegister',
 
   components: {
     index,
@@ -31,7 +31,7 @@ export default {
 
   head() {
     return {
-      title: 'Đăng nhập',
+      title: 'Đăng ký',
     }
   },
 }

@@ -121,6 +121,7 @@ export default {
 
     commentReplyCount() {
       const commentReplyCount = this.commentItem.commentReplyCount
+
       const commentReplyCountNumber =
         this.commentReplyPaging.commentsReply?.length
 
@@ -160,12 +161,19 @@ export default {
       return (this.isFormReply = e)
     },
 
-    handleChangeReply(e) {
+    handleChangeReply({ message, callback }) {
       this.actFetchPostCommentList({
         post: this.commentItem.post,
-        content: e,
+        content: message,
         parent: this.parentId,
-      }).then((res) => this.commentExclude.push(res.comment.id))
+      }).then((res) => {
+        callback()
+        if (res.ok) {
+          this.commentExclude.push(res.comment.id)
+        } else {
+          alert(res.error)
+        }
+      })
     },
   },
 }

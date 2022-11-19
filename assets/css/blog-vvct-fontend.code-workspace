@@ -1,11 +1,12 @@
 {
   "folders": [
-	{
-		"path": "../.."
-	},
-	{
-		"path": "../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/wp-api"
-	}
-],
-  "settings": {}
+    {
+      "name": "blog-vvct-fontend",
+      "path": "../.."
+    },
+    {
+      "name": "wp-api",
+      "path": "../../../../../../../../Applications/XAMPP/xamppfiles/htdocs/wp-api"
+    }
+  ]
 }

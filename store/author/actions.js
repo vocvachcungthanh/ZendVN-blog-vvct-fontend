@@ -94,7 +94,7 @@ export default {
   },
 
   // eslint-disable-next-line no-empty-pattern
-  async actUploadAvatar({ state }, { file }) {
+  async actFetchUploadAvatar({ state }, { file }) {
     try {
       const token = state.token
       const config = {
@@ -120,7 +120,7 @@ export default {
   },
 
   // eslint-disable-next-line require-await
-  async actUpdateProfile(
+  async actFetchUploadProfile(
     { commit, dispatch, state },
     // eslint-disable-next-line camelcase
     { file, nickname, last_name, first_name, description }
@@ -144,7 +144,7 @@ export default {
       }
 
       if (file) {
-        const resMedia = await dispatch('actUpdateProfile', { file })
+        const resMedia = await dispatch('actFetchUploadProfile', { file })
 
         if (!resMedia.data) {
           return {
@@ -169,6 +169,47 @@ export default {
         data: currentUser,
       }
     } catch (error) {
+      return {
+        ok: false,
+        error: error.message,
+      }
+    }
+  },
+
+  async actFetchChangePassword(
+    { state },
+    { password, newPassword, confirmNewPassword }
+  ) {
+    try {
+      const data = {
+        password,
+        new_password: newPassword,
+        confirm_new_password: confirmNewPassword,
+      }
+
+      const token = state.token
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+
+      const response = await this.$api.put('/users/password', data, config)
+
+      if (response.status === 200) {
+        return {
+          ok: true,
+        }
+      }
+    } catch (error) {
+      if (error.response) {
+        return {
+          ok: false,
+          error: error.response.data.message,
+        }
+      }
+
       return {
         ok: false,
         error: error.message,

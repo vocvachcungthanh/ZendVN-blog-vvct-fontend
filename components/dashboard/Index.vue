@@ -139,7 +139,7 @@ export default {
 
   methods: {
     ...mapActions({
-      actUpdateProfile: 'author/actUpdateProfile',
+      actFetchUploadProfile: 'author/actFetchUploadProfile',
     }),
 
     splitFullName(fullNameStr) {
@@ -180,7 +180,7 @@ export default {
 
           this.isLoading = true
 
-          this.actUpdateProfile(data).then((res) => {
+          this.actFetchUploadProfile(data).then((res) => {
             if (res.ok) {
               this.fileUpload = {
                 file: null,

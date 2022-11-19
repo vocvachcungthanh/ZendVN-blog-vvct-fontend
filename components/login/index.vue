@@ -90,7 +90,6 @@ export default {
           password: this.password,
         }).then((res) => {
           if (res.ok) {
-            alert('Đăng nhập thành công')
             this.$router.push(getUrlHome())
           } else {
             alert('Đăng nhập thất bại')

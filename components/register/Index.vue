@@ -110,8 +110,6 @@ export default {
           password: this.password,
           nickname: this.nickname,
         }).then((res) => {
-          // eslint-disable-next-line no-console
-          console.log('[res]', res)
           if (res.ok) {
             this.$router.push(getUrlHome())
           } else {
